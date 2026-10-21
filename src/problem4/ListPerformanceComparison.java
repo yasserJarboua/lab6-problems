@@ -3,7 +3,6 @@ package problem4;
 import java.util.*;
 
 public class ListPerformanceComparison {
-
     private static final int SIZE = 100_000;        // total elements
     private static final int OPERATIONS = 10_000;   // random operations to test
 
@@ -16,8 +15,12 @@ public class ListPerformanceComparison {
         System.out.println("---- Performance Comparison ----");
 
         System.out.println("---- Populate both lists ----");
+        Random r=new Random();
         for (int i = 0; i < SIZE; i++) {
             //code here
+            int n=r.nextInt(1_000);
+            arrayList.add(n);
+            linkedList.add(n);
             //code here
         }
 
@@ -41,7 +44,13 @@ public class ListPerformanceComparison {
         long start = System.nanoTime();
 
         // insert your code here
-
+        for(int i=0;i<OPERATIONS;i++){
+            int insert=random.nextInt(list.size());
+            list.add(insert,random.nextInt(1_000));
+        }
+        for(int i=0;i<OPERATIONS;i++){
+            list.remove(random.nextInt(list.size()-1));
+        }
         long end = System.nanoTime();
         System.out.printf("%s - Random insert/delete: %.3f ms%n",
                 name, (end - start) / 1_000_000.0);
@@ -51,15 +60,21 @@ public class ListPerformanceComparison {
 
     private static void testSequentialInsertDelete(List<Integer> list, String name) {
         long start = System.nanoTime();
-
+        Random random=new Random();
         // Insertions at beginning and end
 
         // add your code here
-
+        for(int i=0;i<OPERATIONS;i++){
+            list.add(0,random.nextInt(1_000));
+            list.add(random.nextInt(1_000));
+        }
         // Deletions at beginning and end
 
         // add your code here
-
+        for(int i=0;i<OPERATIONS;i++){
+            list.remove(0);
+            list.remove(list.size()-1);
+        }
         long end = System.nanoTime();
         System.out.printf("%s - Sequential insert/delete (start/end): %.3f ms%n",
                 name, (end - start) / 1_000_000.0);
@@ -74,6 +89,9 @@ public class ListPerformanceComparison {
         long sum = 0;
         // sum of the all elements in the list
        // insert your code here
+        for(int i=0;i<OPERATIONS;i++) {
+            sum += list.get(i);
+        }
 
         long end = System.nanoTime();
         System.out.printf("%s - Random access (get): %.3f ms%n",

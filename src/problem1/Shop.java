@@ -2,6 +2,8 @@ package problem1;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+
 public class Shop
 {
     public static void main (String[] args)
@@ -13,6 +15,7 @@ public class Shop
         int quantity;
         Scanner scan = new Scanner(System.in);
         String keepShopping = "y";
+        double total=0;
         do
         {
             System.out.print ("Enter the name of the item: ");
@@ -21,8 +24,16 @@ public class Shop
             itemPrice = scan.nextDouble();
             System.out.print ("Enter the quantity: ");
             quantity = scan.nextInt();
+            scan.nextLine();
 // *** create a new item and add it to the cart
+            cart.add(new Item(itemName,itemPrice,quantity));
             // *** print the contents of the cart object using println
+            System.out.println("The cart contain:");
+            for(Item i:cart){
+                System.out.println(i);
+                total+=i.getPrice()* i.getQuantity();
+            }
+            System.out.println("The total price is: "+total);
             System.out.print ("Continue shopping (y/n)? ");
             keepShopping = scan.nextLine();
         }
